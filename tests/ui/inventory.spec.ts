@@ -29,6 +29,8 @@ test.describe('Inventory @regression', () => {
         await inventory.addProductToCart('Sauce Labs Backpack');
         await inventory.addProductToCart('Sauce Labs Bike Light');
         await page.locator('[data-test="shopping-cart-link"]').click();
+        // Thêm dòng này — chờ URL chuyển sang cart
+    await page.waitForURL('**/cart.html');
         await expect(page.locator('[data-test="cart-item"]')).toHaveCount(2);
     });
 
