@@ -8,6 +8,8 @@ test.describe('Inventory @regression', () => {
         await page.goto('/');
         const login = new LoginPage(page);
         await login.login();
+        // Thêm dòng này — chờ trang inventory load xong
+        await page.waitForURL('**/inventory.html');
     });
 
     test('Trang san pham co dung 6 san pham @smoke', async ({ page }) => {

@@ -32,6 +32,9 @@ export default defineConfig({
     /* Base URL to use in actions like `await page.goto('')`. */
     baseURL: process.env.BASE_URL,
 
+    extraHTTPHeaders: {
+        'User-Agent': 'Mozilla/5.0 (compatible; Playwright)'
+    },
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
 
