@@ -8,8 +8,9 @@ test.describe('Inventory @regression', () => {
         await page.goto('/');
         const login = new LoginPage(page);
         await login.login();
-        // Thêm dòng này — chờ trang inventory load xong
+        // Chờ inventory page load HOÀN TOÀN
         await page.waitForURL('**/inventory.html');
+        await page.waitForLoadState('networkidle');
     });
 
     test('Trang san pham co dung 6 san pham @smoke', async ({ page }) => {
@@ -30,7 +31,7 @@ test.describe('Inventory @regression', () => {
         await inventory.addProductToCart('Sauce Labs Bike Light');
         await page.locator('[data-test="shopping-cart-link"]').click();
         // Thêm dòng này — chờ URL chuyển sang cart
-    await page.waitForURL('**/cart.html');
+        await page.waitForURL('**/cart.html');
         await expect(page.locator('[data-test="cart-item"]')).toHaveCount(2);
     });
 
