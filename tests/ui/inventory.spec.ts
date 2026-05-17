@@ -26,14 +26,16 @@ test.describe('Inventory @regression', () => {
     });
 
     test('Mo gio hang, List co 2 san pham @regression', async ({ page }) => {
-        const inventory = new InventoryPage(page);
-        await inventory.addProductToCart('Sauce Labs Backpack');
-        await inventory.addProductToCart('Sauce Labs Bike Light');
-        await page.locator('[data-test="shopping-cart-link"]').click();
-        // Thêm dòng này — chờ URL chuyển sang cart
-        await page.waitForURL('**/cart.html');
-        await expect(page.locator('[data-test="cart-item"]')).toHaveCount(2);
-    });
+    const inventory = new InventoryPage(page);
+    await inventory.addProductToCart('Sauce Labs Backpack');
+    await inventory.addProductToCart('Sauce Labs Bike Light');
+
+    await page.locator('[data-test="shopping-cart-link"]').click();
+    await page.waitForURL('**/cart.html');
+
+    // Saucedemo dùng class này cho cart items
+    await expect(page.locator('.cart_item')).toHaveCount(2);
+});
 
     // Bug #67 — sort gia cao den thap bi sai thu tu, dang cho dev fix
     test.fixme('San pham duoc sort dung thu tu gia cao den thap @regression', async ({ page }) => {
